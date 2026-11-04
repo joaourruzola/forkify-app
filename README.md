@@ -1,29 +1,65 @@
-Status: [![Netlify Status](https://api.netlify.com/api/v1/badges/4c6f6851-6a3c-4de4-bfef-30393ee3f119/deploy-status)](https://app.netlify.com/sites/forkify-joaobraun/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/4c6f6851-6a3c-4de4-bfef-30393ee3f119/deploy-status)](https://app.netlify.com/sites/forkify-joaobraun/deploys)
 
-## Notes
+# Forkify
 
-This project is based on the one created by <a href="https://github.com/jonasschmedtmann">Jonas Schmedtmann</a> from his JavaScript course. You can check the full application <a href="https://forkify-joaobraun.netlify.app">here!</a>
+A recipe search app: search for recipes, see cooking times and servings, bookmark favorites and add your own recipes. It uses the Forkify API for recipe data.
 
-## Project Info
+🔗 **Live demo:** https://forkify-joaobraun.netlify.app
 
-This app displays lots of differents recipes, servings and how to cook it. You have a search input, a sidebar displaying all recipes you searched, a bookmark and also you can add your own recipes. This project uses Jonas API to fetch data, and the ```MVC architecture``` to organize the code modules. Here we used many Javascript ES6+ features, also using classes to make a better use of the architecture, the project is bundled to compress the code and also transpiled to support older browsers so that the app can run in most environments.
+> This project is based on the app built by [Jonas Schmedtmann](https://github.com/jonasschmedtmann) in his JavaScript course. It was made for learning purposes.
 
-## Installing and Running
+## Features
 
-- <a href="https://docs.github.com/pt/repositories/creating-and-managing-repositories/cloning-a-repository">Clone</a> this repository.
+- Search recipes by keyword
+- Paginated results
+- Recipe details with servings that can be adjusted
+- Bookmarks, kept in the sidebar
+- Add your own recipes
 
-You'll need ```node``` and ```npm``` installed locally. Then run:
+## Architecture
 
-```
+The code follows the **MVC** pattern, split into modules:
+
+- `model.js` holds application state and API calls
+- `views/` renders each part of the interface
+- `controller.js` connects views and model
+
+It uses modern JavaScript (ES6+ classes and modules), SCSS for styles, and is bundled with Parcel and transpiled with Babel for older browsers.
+
+## Tech Stack
+
+- HTML5, SCSS
+- JavaScript (ES6+)
+- [Parcel](https://parceljs.org/) bundler
+- Babel
+
+## Getting Started
+
+You need Node.js and npm.
+
+```bash
 npm install
-```
-and then to run locally:
-
-```
 npm start
-````
-if done correctly you should see on the terminal the message *"Server running at http://localhost:1234"*
+```
 
-## Other Considerations
+Parcel serves the app at `http://localhost:1234`.
 
-This project is made by Jonas Schmedtmann for learning purposes.
+To create a production build in `dist/`:
+
+```bash
+npm run build
+```
+
+## Project Structure
+
+```
+├── index.html
+└── src/
+    ├── js/
+    │   ├── controller.js     # Connects views and model
+    │   ├── model.js          # State and API calls
+    │   ├── config.js         # Configuration
+    │   ├── helpers.js        # Helper functions
+    │   └── views/            # View classes
+    └── sass/                 # Stylesheets
+```
