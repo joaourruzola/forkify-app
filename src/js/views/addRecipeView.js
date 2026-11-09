@@ -27,10 +27,6 @@ class AddRecipeView extends View {
   _addHandlerHideWindow() {
     this._btnClose.addEventListener('click', this.toggleWindow.bind(this));
     this._overlay.addEventListener('click', this.toggleWindow.bind(this));
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && !this._window.classList.contains('hidden'))
-        this.toggleWindow();
-    });
   }
 
   addHandlerUpload(handler) {

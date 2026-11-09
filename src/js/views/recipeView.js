@@ -8,38 +8,6 @@ class RecipeView extends View {
   _errorMessage = 'We could no find that recipe. Please try another one';
   _message = '';
 
-  constructor() {
-    super();
-    this._addHandlerBack();
-  }
-
-  // Phones/tablet: the recipe sits below the results list, so bring it into view
-  _scrollIntoViewOnSmallScreens() {
-    if (window.matchMedia('(max-width: 899px)').matches)
-      this._parentElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
-
-  renderSpinner() {
-    super.renderSpinner();
-    this._scrollIntoViewOnSmallScreens();
-  }
-
-  render(data, render = true) {
-    const markup = super.render(data, render);
-    if (render && data) this._scrollIntoViewOnSmallScreens();
-    return markup;
-  }
-
-  // Phones/tablet: the "Results" button jumps back up to the list
-  _addHandlerBack() {
-    this._parentElement.addEventListener('click', function (e) {
-      if (!e.target.closest('.recipe__back')) return;
-      document
-        .querySelector('.search-results')
-        .scrollIntoView({ behavior: 'smooth', block: 'start' });
-    });
-  }
-
   addHandlerRender(handler) {
     ['hashchange', 'load'].forEach(ev => {
       window.addEventListener(ev, handler);
@@ -59,10 +27,10 @@ class RecipeView extends View {
     return `
     <li class="recipe__ingredient">
         <svg class="recipe__icon">
-            <use href="${icons}#icon-check"></use>
+            <use href="src/img/icons.svg#icon-check"></use>
         </svg>
     <div class="recipe__quantity">${
-      ing.quantity ? fracty(ing.quantity).toString() : ''
+      ing.quantity ? fracty(ing.quantity).toString() : ' '
     }</div>
         <div class="recipe__description">
             <span class="recipe__unit">${ing.unit}</span>
@@ -83,16 +51,10 @@ class RecipeView extends View {
 
   _generateMarkup() {
     return `
-    <figure class="recipe__fig">
+        <figure class="recipe__fig">
         <img src="${this._data.image}" alt="${
       this._data.title
     }" class="recipe__img" />
-        <button class="recipe__back" type="button">
-            <svg>
-                <use href="${icons}#icon-arrow-left"></use>
-            </svg>
-            <span>Results</span>
-        </button>
         <h1 class="recipe__title">
         <span>${this._data.title}</span>
         </h1>
@@ -118,14 +80,14 @@ class RecipeView extends View {
         <span class="recipe__info-text">servings</span>
 
         <div class="recipe__info-buttons">
-            <button class="btn--tiny btn--increase-servings" aria-label="Fewer servings" data-update-to="${
+            <button class="btn--tiny btn--increase-servings" data-update-to="${
               this._data.servings - 1
             }">
             <svg>
                 <use href="${icons}#icon-minus-circle"></use>
             </svg>
             </button>
-            <button class="btn--tiny btn--increase-servings" aria-label="More servings" data-update-to="${
+            <button class="btn--tiny btn--increase-servings" data-update-to="${
               this._data.servings + 1
             }">
             <svg>
@@ -140,7 +102,7 @@ class RecipeView extends View {
                 <use href="${icons}#icon-user"></use>
             </svg>
         </div>
-        <button class="btn--round btn--bookmark" aria-label="Bookmark this recipe">
+        <button class="btn--round btn--bookmark">
         <svg class="">
             <use href="${icons}#icon-bookmark${
       this._data.bookmarked ? '-fill' : ''
@@ -153,7 +115,6 @@ class RecipeView extends View {
         <h2 class="heading--2">Recipe ingredients</h2>
         <ul class="recipe__ingredient-list">
         ${this._data.ingredients.map(this._generateMarkupIngredient).join('')}
-        </ul>
     </div>
 
     <div class="recipe__directions">
@@ -169,11 +130,10 @@ class RecipeView extends View {
         class="btn--small recipe__btn"
         href="${this._data.sourceUrl}"
         target="_blank"
-        rel="noopener"
         >
         <span>Directions</span>
         <svg class="search__icon">
-            <use href="${icons}#icon-arrow-right"></use>
+            <use href="src/img/icons.svg#icon-arrow-right"></use>
         </svg>
         </a>
     </div>

@@ -1,22 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <meta
-      name="description"
-      content="forkify — search over 1,000,000 recipes, scale servings and bookmark your favourites."
+    <link
+      href="https://fonts.googleapis.com/css?family=Nunito+Sans:400,600,700"
+      rel="stylesheet"
     />
-    <meta name="theme-color" content="#070b14" />
-    <script>
-      // Apply the saved theme before first paint (avoids a dark/light flash)
-      try {
-        var t = localStorage.getItem('theme');
-        if (t === 'light' || t === 'dark')
-          document.documentElement.dataset.theme = t;
-      } catch (e) {}
-    </script>
     <link rel="shortcut icon" href="src/img/favicon.png" type="image/x-icon" />
 
     <link rel="stylesheet" href="src/sass/main.scss" />
@@ -26,174 +17,137 @@
   </head>
 
   <body>
-    <a class="skip-link" href="#recipe">Skip to recipe</a>
+    <div class="container">
+      <header class="header">
+        <a href="https://forkify-joaobraun.netlify.app">
+          <img src="src/img/logo.png" alt="Logo" class="header__logo" />
+        </a>
+        <form class="search">
+          <input
+            type="text"
+            class="search__field"
+            placeholder="Search over 1,000,000 recipes..."
+          />
+          <button class="btn search__btn">
+            <svg class="search__icon">
+              <use href="src/img/icons.svg#icon-search"></use>
+            </svg>
+            <span>Search</span>
+          </button>
+        </form>
 
-    <div class="shell">
-      <div class="container">
-        <header class="header">
-          <a class="header__home" href="https://forkify-joaobraun.netlify.app" aria-label="forkify home">
-            <img src="src/img/logo-light.png" alt="forkify" class="header__logo header__logo--light" />
-            <img src="src/img/logo-dark.png" alt="" aria-hidden="true" class="header__logo header__logo--dark" />
-          </a>
-
-          <form class="search" role="search">
-            <input
-              type="search"
-              class="search__field"
-              placeholder="Search over 1,000,000 recipes..."
-              aria-label="Search recipes"
-              autocomplete="off"
-            />
-            <button class="btn search__btn">
-              <svg class="search__icon">
-                <use href="src/img/icons.svg#icon-search"></use>
-              </svg>
-              <span>Search</span>
-            </button>
-          </form>
-
-          <nav class="nav" aria-label="Actions">
-            <ul class="nav__list">
-              <li class="nav__item">
-                <button class="nav__btn nav__btn--add-recipe" type="button">
-                  <svg class="nav__icon">
-                    <use href="src/img/icons.svg#icon-edit"></use>
-                  </svg>
-                  <span>Add recipe</span>
-                </button>
-              </li>
-              <li class="nav__item">
-                <button
-                  class="nav__btn nav__btn--bookmarks"
-                  type="button"
-                  aria-expanded="false"
-                  aria-controls="bookmarks"
-                >
-                  <svg class="nav__icon">
-                    <use href="src/img/icons.svg#icon-bookmark"></use>
-                  </svg>
-                  <span>Bookmarks</span>
-                </button>
-                <div class="bookmarks" id="bookmarks">
-                  <ul class="bookmarks__list">
-                    <div class="message">
-                      <div>
-                        <svg>
-                          <use href="src/img/icons.svg#icon-smile"></use>
-                        </svg>
-                      </div>
-                      <p>
-                        No bookmarks yet. Find a nice recipe and bookmark it :)
-                      </p>
+        <nav class="nav">
+          <ul class="nav__list">
+            <li class="nav__item">
+              <button class="nav__btn nav__btn--add-recipe">
+                <svg class="nav__icon">
+                  <use href="src/img/icons.svg#icon-edit"></use>
+                </svg>
+                <span>Add recipe</span>
+              </button>
+            </li>
+            <li class="nav__item">
+              <button class="nav__btn nav__btn--bookmarks">
+                <svg class="nav__icon">
+                  <use href="src/img/icons.svg#icon-bookmark"></use>
+                </svg>
+                <span>Bookmarks</span>
+              </button>
+              <div class="bookmarks">
+                <ul class="bookmarks__list">
+                  <div class="message">
+                    <div>
+                      <svg>
+                        <use href="src/img/icons.svg#icon-smile"></use>
+                      </svg>
                     </div>
-                  </ul>
-                </div>
-              </li>
-              <li class="nav__item">
-                <button
-                  class="icon-btn theme-toggle"
-                  type="button"
-                  aria-label="Toggle light / dark theme"
-                  aria-pressed="false"
-                >
-                  <svg class="sun" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                    <circle cx="12" cy="12" r="4"></circle>
-                    <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"></path>
-                  </svg>
-                  <svg class="moon" width="22" height="22" viewBox="0 0 24 24" aria-hidden="true">
-                    <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
-                  </svg>
-                </button>
-              </li>
-            </ul>
-          </nav>
-        </header>
+                    <p>
+                      No bookmarks yet. Find a nice recipe and bookmark it :)
+                    </p>
+                  </div>
+                </ul>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
 
-        <div class="search-results">
-          <ul class="results"></ul>
+      <div class="search-results">
+        <ul class="results"></ul>
 
-          <div class="pagination"></div>
-        </div>
+        <div class="pagination"></div>
+      </div>
 
-        <main class="recipe" id="recipe" tabindex="-1">
-          <div class="message">
-            <div>
-              <svg>
-                <use href="src/img/icons.svg#icon-smile"></use>
-              </svg>
-            </div>
-            <p>Start by searching for a recipe or an ingredient. Have fun!</p>
+      <div class="recipe">
+        <div class="message">
+          <div>
+            <svg>
+              <use href="src/img/icons.svg#icon-smile"></use>
+            </svg>
           </div>
-        </main>
+          <p>Start by searching for a recipe or an ingredient. Have fun!</p>
+        </div>
       </div>
     </div>
 
     <div class="overlay hidden"></div>
-    <div
-      class="add-recipe-window hidden"
-      role="dialog"
-      aria-modal="true"
-      aria-label="Add a new recipe"
-    >
-      <button class="btn--close-modal" type="button" aria-label="Close">&times;</button>
+    <div class="add-recipe-window hidden">
+      <button class="btn--close-modal">&times;</button>
       <form class="upload">
         <div class="upload__column">
           <h3 class="upload__heading">Recipe data</h3>
-          <label for="f-title">Title</label>
-          <input id="f-title" required name="title" type="text" />
-          <label for="f-url">URL</label>
-          <input id="f-url" required name="sourceUrl" type="text" />
-          <label for="f-image">Image URL</label>
-          <input id="f-image" required name="image" type="text" />
-          <label for="f-publisher">Publisher</label>
-          <input id="f-publisher" required name="publisher" type="text" />
-          <label for="f-time">Prep time (minutes)</label>
-          <input id="f-time" required name="cookingTime" type="number" min="1" />
-          <label for="f-servings">Servings</label>
-          <input id="f-servings" required name="servings" type="number" min="1" />
+          <label>Title</label>
+          <input value="TEST22" required name="title" type="text" />
+          <label>URL</label>
+          <input value="TEST22" required name="sourceUrl" type="text" />
+          <label>Image URL</label>
+          <input value="TEST22" required name="image" type="text" />
+          <label>Publisher</label>
+          <input value="TEST22" required name="publisher" type="text" />
+          <label>Prep time</label>
+          <input value="23" required name="cookingTime" type="number" />
+          <label>Servings</label>
+          <input value="23" required name="servings" type="number" />
         </div>
 
         <div class="upload__column">
           <h3 class="upload__heading">Ingredients</h3>
-          <label for="f-ing-1">Ingredient 1</label>
+          <label>Ingredient 1</label>
           <input
-            id="f-ing-1"
+            value="0.5,kg,Rice"
             type="text"
             required
             name="ingredient-1"
             placeholder="Format: 'Quantity,Unit,Description'"
           />
-          <label for="f-ing-2">Ingredient 2</label>
+          <label>Ingredient 2</label>
           <input
-            id="f-ing-2"
+            value="1,,Avocado"
             type="text"
             name="ingredient-2"
             placeholder="Format: 'Quantity,Unit,Description'"
           />
-          <label for="f-ing-3">Ingredient 3</label>
+          <label>Ingredient 3</label>
           <input
-            id="f-ing-3"
+            value=",,salt"
             type="text"
             name="ingredient-3"
             placeholder="Format: 'Quantity,Unit,Description'"
           />
-          <label for="f-ing-4">Ingredient 4</label>
+          <label>Ingredient 4</label>
           <input
-            id="f-ing-4"
             type="text"
             name="ingredient-4"
             placeholder="Format: 'Quantity,Unit,Description'"
           />
-          <label for="f-ing-5">Ingredient 5</label>
+          <label>Ingredient 5</label>
           <input
-            id="f-ing-5"
             type="text"
             name="ingredient-5"
             placeholder="Format: 'Quantity,Unit,Description'"
           />
-          <label for="f-ing-6">Ingredient 6</label>
+          <label>Ingredient 6</label>
           <input
-            id="f-ing-6"
             type="text"
             name="ingredient-6"
             placeholder="Format: 'Quantity,Unit,Description'"
