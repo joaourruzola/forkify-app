@@ -11,6 +11,7 @@ export const state = {
     resultsPerPage: RES_PER_PAGE,
   },
   bookmarks: [],
+  theme: 'dark',
 };
 
 const createRecipeObject = function (data) {
@@ -104,9 +105,17 @@ export const deleteBookmark = function (id) {
   persistBookmarks();
 };
 
+export const toggleTheme = function () {
+  state.theme = state.theme === 'light' ? 'dark' : 'light';
+  localStorage.setItem('theme', state.theme);
+};
+
 const init = function () {
   const storage = localStorage.getItem('bookmarks');
   if (storage) state.bookmarks = JSON.parse(storage);
+
+  const theme = localStorage.getItem('theme');
+  if (theme === 'light' || theme === 'dark') state.theme = theme;
 };
 
 init();
