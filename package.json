@@ -10,15 +10,12 @@
   },
   "author": "joaobraun",
   "license": "ISC",
-  "engines": {
-    "node": ">=22"
-  },
   "devDependencies": {
     "@babel/core": "^7.23.6",
     "@babel/plugin-proposal-private-methods": "^7.18.6",
     "@babel/plugin-syntax-class-properties": "^7.12.13",
-    "@parcel/transformer-sass": "^2.15.0",
-    "parcel": "^2.15.0"
+    "@parcel/transformer-sass": "^2.10.3",
+    "parcel": "^2.10.3"
   },
   "dependencies": {
     "core-js": "^3.34.0",

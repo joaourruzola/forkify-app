@@ -1,75 +1,158 @@
-// $color-primary: #f59a83;
-$color-primary: #f76b1c;
-$color-grad-1: #fad961;
-$color-grad-2: #f76b1c;
+// Reset + page shell. Mobile first: one column, the two panes stack.
+// >= 900px the app becomes a two-pane layout (results | recipe).
 
-$color-grey-light-1: #f9f5f3; // Light background
-$color-grey-light-2: #f2efee; // Light lines
-$color-grey-light-3: #d3c7c3; // Light text (placeholder)
-$color-grey-dark-1: #615551; // Normal text
-$color-grey-dark-2: #918581; // Lighter text
-
-$gradient: linear-gradient(
-  to right bottom,
-  $color-grad-1 0%,
-  $color-grad-2 100%
-);
-
-$bp-large: 78.15em; // 1250px
-$bp-medium: 61.25em; // 980px
-$bp-small: 37.5em; // 600px
-$bp-smallest: 31.25em; // 500px
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 * {
   margin: 0;
   padding: 0;
 }
 
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
-}
-
 html {
-  box-sizing: border-box;
-  font-size: 62.5%;
-
-  @media only screen and (max-width: $bp-medium) {
-    font-size: 50%;
-  }
+  -webkit-text-size-adjust: 100%;
+  scroll-behavior: smooth;
 }
 
 body {
-  font-family: 'Nunito Sans', sans-serif;
-  font-weight: 400;
+  min-height: 100vh;
+  min-height: 100dvh;
+  position: relative;
+  overflow-x: hidden;
+  color: var(--text);
   line-height: 1.6;
-  color: $color-grey-dark-1;
-  background-image: $gradient;
-  background-size: cover;
+  background: radial-gradient(60rem 26rem at 12% -8rem, var(--glow-1), transparent 70%),
+    radial-gradient(52rem 24rem at 88% -9rem, var(--glow-2), transparent 70%), var(--page);
   background-repeat: no-repeat;
-  min-height: calc(100vh - 2 * 4vw);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+// Subtle grain (same trick as the portfolio)
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+
+a {
+  color: inherit;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+}
+
+ul {
+  list-style: none;
+}
+
+button,
+input {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+::selection {
+  color: var(--on-accent);
+  background: var(--accent);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -4rem;
+  z-index: 200;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  background: var(--accent);
+  color: var(--on-accent);
+  font-weight: 500;
+  text-decoration: none;
+  transition: top 0.3s var(--ease);
+}
+
+.skip-link:focus {
+  top: 1rem;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// ---------- App shell ----------
+.shell {
+  max-width: 90rem;
+  margin-inline: auto;
 }
 
 .container {
-  max-width: 120rem;
-  min-height: 117rem;
-  margin: 4vw auto;
-  background-color: #fff;
-  border-radius: 9px;
-  overflow: hidden;
-  box-shadow: 0 2rem 6rem 0.5rem rgba($color-grey-dark-1, 0.2);
-
   display: grid;
-  grid-template-rows: 10rem minmax(100rem, auto);
-  grid-template-columns: 1fr 2fr;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: auto auto 1fr;
   grid-template-areas:
-    'head head'
-    'list recipe';
+    'head'
+    'list'
+    'recipe';
+  background: var(--paper);
+  min-height: 100vh;
+  min-height: 100dvh;
+}
 
-  @media only screen and (max-width: $bp-large) {
-    max-width: 100%;
-    margin: 0;
-    border-radius: 0;
+@media (min-width: 900px) {
+  .shell {
+    padding: 1.5rem;
+  }
+
+  .container {
+    grid-template-columns: minmax(22rem, 26rem) minmax(0, 1fr);
+    grid-template-rows: auto minmax(0, 1fr);
+    grid-template-areas:
+      'head head'
+      'list recipe';
+    height: calc(100dvh - 3rem);
+    min-height: 40rem;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation: none !important;
+    transition: none !important;
   }
 }
