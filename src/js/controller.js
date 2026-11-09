@@ -6,7 +6,6 @@ import resultsView from './views/resultsView.js';
 import paginationView from './views/paginationView.js';
 import bookmarksView from './views/bookmarksView.js';
 import AddRecipeView from './views/addRecipeView.js';
-import themeView from './views/themeView.js';
 
 import 'core-js/stable';
 import 'regenerator-runtime/runtime';
@@ -126,14 +125,7 @@ const controlAddRecipe = async function (newRecipe) {
   // Upload the new recipe daata
 };
 
-const controlTheme = function () {
-  model.toggleTheme();
-  themeView.render(model.state.theme);
-};
-
 const init = function () {
-  themeView.render(model.state.theme);
-  themeView.addHandlerToggle(controlTheme);
   bookmarksView.addHandlerRender(controlBookmarks);
   recipeView.addHandlerRender(controlRecipes);
   recipeView.addHandlerUpdateServings(controlServings);

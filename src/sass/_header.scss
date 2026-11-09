@@ -1,250 +1,144 @@
-// Header: logo | search | actions. On phones it becomes two rows
-// (logo + actions, then a full-width search).
-
 .header {
   grid-area: head;
-  position: relative;
-  z-index: 40;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) auto;
-  grid-template-areas:
-    'logo nav'
-    'search search';
+  background-color: $color-grey-light-1;
+  display: flex;
   align-items: center;
-  gap: 0.75rem 0.5rem;
-  padding: 0.75rem var(--pad) 1rem;
-  border-bottom: 1px solid var(--line);
-  background: var(--paper);
+  justify-content: space-between;
+
+  &__logo {
+    margin-left: 4rem;
+    height: 4.6rem;
+    display: block;
+  }
 }
 
-.header__home {
-  grid-area: logo;
-  justify-self: start;
-  display: inline-block;
-  line-height: 0;
-}
-
-// Two logo variants: light wordmark/cyan icon on the dark theme, original on the light theme
-.header__logo {
-  display: block;
-  height: 2.5rem;
-  width: auto;
-}
-
-.header__logo--light {
-  display: none;
-}
-
-:root[data-theme='light'] .header__logo--light {
-  display: block;
-}
-
-:root[data-theme='light'] .header__logo--dark {
-  display: none;
-}
-
-// ---------- Search ----------
 .search {
-  grid-area: search;
+  background-color: #fff;
+  border-radius: 10rem;
   display: flex;
   align-items: center;
-  width: 100%;
-  min-height: 3rem;
-  padding: 0.25rem 0.25rem 0.25rem 1.1rem;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface);
-  transition: border-color 0.25s var(--ease), box-shadow 0.25s var(--ease);
-}
+  padding-left: 3rem;
+  transition: all 0.3s;
 
-.search:focus-within {
-  border-color: var(--accent);
-  box-shadow: 0 0 0 3px var(--active);
-}
-
-.search__field {
-  flex: 1;
-  min-width: 0;
-  border: 0;
-  background: none;
-  font-size: 1rem; // 16px: prevents iOS zoom on focus
-  color: var(--text);
-}
-
-.search__field:focus {
-  outline: none;
-}
-
-.search__field::placeholder {
-  color: var(--dim);
-}
-
-.search__btn {
-  flex: none;
-  min-height: 2.5rem;
-  padding: 0.5rem 1.1rem;
-}
-
-.search__icon {
-  width: 1.2rem;
-  height: 1.2rem;
-}
-
-// Phones: icon-only search button
-@media (max-width: 599px) {
-  .search__btn span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
+  &:focus-within {
+    transform: translateY(-2px);
+    box-shadow: 0 0.7rem 3rem rgba($color-grey-dark-1, 0.08);
   }
 
-  .search__btn {
-    width: 2.5rem;
-    padding: 0;
+  &__field {
+    border: none;
+    background: none;
+    font-family: inherit;
+    color: inherit;
+    font-size: 1.7rem;
+    width: 30rem;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::placeholder {
+      color: $color-grey-light-3;
+    }
+
+    @media only screen and (max-width: $bp-medium) {
+      width: auto;
+
+      &::placeholder {
+        color: white;
+      }
+    }
+  }
+
+  &__btn {
+    font-weight: 600;
+    font-family: inherit;
   }
 }
 
-// ---------- Actions ----------
 .nav {
-  grid-area: nav;
-}
+  align-self: stretch;
+  margin-right: 2.5rem;
 
-.nav__list {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-}
-
-.nav__item {
-  position: relative;
-}
-
-.nav__btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  min-height: 2.75rem;
-  min-width: 2.75rem;
-  justify-content: center;
-  padding: 0 0.85rem;
-  border: 0;
-  border-radius: 999px;
-  background: transparent;
-  color: var(--muted);
-  font-size: 0.9rem;
-  font-weight: 500;
-  transition: background-color 0.2s var(--ease), color 0.2s var(--ease);
-}
-
-.nav__btn svg {
-  width: 1.35rem;
-  height: 1.35rem;
-  fill: currentColor;
-  flex: none;
-}
-
-.nav__btn:hover,
-.nav__btn[aria-expanded='true'] {
-  color: var(--accent);
-  background: var(--active);
-}
-
-// Phones and narrow desktops: labels hidden, only icons (still announced by screen readers)
-@media (max-width: 599px), (min-width: 900px) and (max-width: 1099px) {
-  .nav__btn {
-    padding: 0;
+  &__list {
+    list-style: none;
+    display: flex;
+    height: 100%;
   }
 
-  .nav__btn span {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
+  &__item {
+    position: relative;
+  }
+
+  &__btn {
+    height: 100%;
+    font-family: inherit;
+    color: inherit;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0 1.5rem;
+    transition: all 0.3s;
+
+    display: flex;
+    align-items: center;
+
+    svg {
+      height: 2.4rem;
+      width: 2.4rem;
+      fill: $color-primary;
+      margin-right: 0.7rem;
+      transform: translateY(-1px);
+    }
+
+    &:focus {
+      outline: none;
+    }
+
+    &:hover {
+      background-color: $color-grey-light-2;
+    }
   }
 }
 
-// Theme toggle: sun in dark mode, moon in light mode
-.theme-toggle .moon {
-  display: none;
-}
-
-:root[data-theme='light'] .theme-toggle .sun {
-  display: none;
-}
-
-:root[data-theme='light'] .theme-toggle .moon {
-  display: block;
-}
-
-.theme-toggle svg {
-  fill: none;
-  stroke: currentColor;
-  stroke-width: 1.8;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-// ---------- Bookmarks panel ----------
-// Desktop: dropdown under the button. Phones: bottom sheet.
 .bookmarks {
+  padding: 1rem 0;
   position: absolute;
-  right: 0;
-  top: calc(100% + 0.6rem);
-  z-index: 50;
-  width: min(26rem, 92vw);
-  max-height: min(32rem, 70dvh);
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  padding: 0.5rem 0;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
-  background: var(--paper);
-  box-shadow: var(--shadow);
+  // right: 0;
+  right: -2.5rem;
+  z-index: 10;
+  width: 40rem;
+  background-color: #fff;
+  box-shadow: 0 0.8rem 5rem 2rem rgba($color-grey-dark-1, 0.1);
 
   visibility: hidden;
   opacity: 0;
-  transform: translateY(-6px);
-  transition: opacity 0.25s var(--ease), transform 0.35s var(--ease-out), visibility 0s linear 0.25s;
-}
+  transition: all 0.5s 0.2s;
 
-.bookmarks--open {
-  visibility: visible;
-  opacity: 1;
-  transform: none;
-  transition: opacity 0.25s var(--ease), transform 0.35s var(--ease-out);
-}
-
-.bookmarks .message,
-.bookmarks .error {
-  margin: 0.75rem;
-}
-
-@media (max-width: 599px) {
-  .bookmarks {
-    position: fixed;
-    inset: auto 0 0 0;
-    width: auto;
-    max-height: 70dvh;
-    padding-bottom: env(safe-area-inset-bottom);
-    border-radius: 20px 20px 0 0;
-    box-shadow: 0 -24px 60px -10px rgba(0, 0, 0, 0.55);
-    transform: translateY(1.5rem);
-  }
-}
-
-// Desktop: single row (tablet keeps the two-row layout, labels visible)
-@media (min-width: 900px) {
-  .header {
-    grid-template-columns: auto minmax(0, 34rem) minmax(0, 1fr);
-    grid-template-areas: 'logo search nav';
-    gap: 1rem 1.5rem;
-    padding-block: 0.9rem;
+  &__list {
+    list-style: none;
   }
 
-  .nav {
-    justify-self: end;
+  &__field {
+    cursor: pointer;
+    padding: 0 4rem;
+
+    display: flex;
+    align-items: center;
+    height: 100%;
+    transition: all 0.3s;
+
+    &:hover {
+      background-color: $color-grey-light-2;
+    }
+  }
+
+  &:hover,
+  .nav__btn--bookmarks:hover + & {
+    visibility: visible;
+    opacity: 1;
   }
 }
