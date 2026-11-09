@@ -10,6 +10,9 @@
   },
   "author": "joaobraun",
   "license": "ISC",
+  "engines": {
+    "node": ">=22"
+  },
   "devDependencies": {
     "@babel/core": "^7.23.6",
     "@babel/plugin-proposal-private-methods": "^7.18.6",
